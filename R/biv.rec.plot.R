@@ -1,13 +1,15 @@
-#' Bivariate Alternating Recurrent Series Plotting
+#' Deprecated: Use plot.bivrecSurv
 #'
 #' @description
-#' This function plots bivariate recurrent event gap times.
-#' @param formula Formula of the form \strong{ID + episode ~ xij + yij}.
+#' Deprecated function from the previous version. Use \verb{plot.bivrecSurv}.
+
+#'
+#' @param formula Formula of the form \verb{id + episode ~ xij + yij}.
 #' \itemize{
-#'   \item ID: A vector of subjects' unique identifier which can be numeric or character.
-#'   \item episode: A vector indicating the episode of the bivariate alternating gap time pairs, e.g.: 1, 2, ..., m_i where m_i indicates the last episode for subject i.
-#'   \item xij: A vector with the lengths of the type I gap times.
-#'   \item yij: A vector with the lengths of the type II gap times.
+#'   \item \verb{id}: A numeric or character vector of subjects' unique identifier.
+#'   \item \verb{episode}: A vector indicating the episode of the bivariate alternating gap time pairs.
+#'   \item \verb{xij}: A vector with the lengths of the Type I gap times.
+#'   \item \verb{yij}: A vector with the lengths of the Type II gap times.
 #' }
 #' @param data A data frame that contains all the vectors listed in the formula
 #'
@@ -18,17 +20,12 @@
 #' @importFrom stats model.frame
 #' @importFrom stats na.omit
 #'
-#' @examples
-#' library(BivRec)
-#' set.seed(1234)
-#' sim.data <- biv.rec.sim(nsize=150, beta1=c(0.5,0.5), beta2=c(0,-0.5), tau_c=63, set=1.1)
-#' biv.rec.plot(formula = id + epi ~ xij + yij, data = sim.data)
-#'
 #' @export
 #'
 
-
 biv.rec.plot <- function(formula, data) {
+
+  .Deprecated("plot")
 
   ####### SET-UP DATA #######
   # PULL DATA FROM FORMULA

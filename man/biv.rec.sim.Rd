@@ -2,41 +2,32 @@
 % Please edit documentation in R/biv.rec.sim.R
 \name{biv.rec.sim}
 \alias{biv.rec.sim}
-\title{Bivariate Recurrent Response and Covariate Data Simulation}
+\title{Deprecated: Use simBivRec}
 \usage{
 biv.rec.sim(nsize, beta1, beta2, tau_c, set)
 }
 \arguments{
-\item{nsize}{sample size which refers to the number of subjects in the data set where each subject could have multiple episodes of events.}
+\item{nsize}{Sample size which refers to the number of subjects in the data set where each subject could have multiple episodes of events.}
 
-\item{beta1}{true coefficients for first gap time in the accelerated failure time model (AFT).}
+\item{beta1}{True coefficients for Type I gap times in the accelerated failure time model (AFT).}
 
-\item{beta2}{true coefficients for second gap time in the accelerated failure time model (AFT).}
+\item{beta2}{True coefficients for Type II gap times in the accelerated failure time model (AFT).}
 
-\item{tau_c}{maximum support of censoring time. Can take values as follows:
+\item{tau_c}{Maximum support of censoring time. It can take values as follows:
 \itemize{
-\item tau_c=63: corresponds to cr=15\% and corresponding \ifelse{html}{\out{m_bar}}{\eqn{\bar{m}}} for each scenario in tables 1 and 2 of Lee CH, Huang C-Y, Xu G, Luo X (2017).
-\item tau_c=30: corresponds to cr=30\% and corresponding \ifelse{html}{\out{m_bar}}{\eqn{\bar{m}}} for each scenario in tables 1 and 2 of Lee CH, Huang C-Y, Xu G, Luo X (2017).
+\item \code{tau_c=63} (default): corresponds to a 15\% censoring rate for each scenario in Tables 1 and 2 of Lee, Huang, Xu, Luo (2018).
+\item \code{tau_c=30}: corresponds to a 30\% censoring rate for each scenario in Tables 1 and 2 of Lee, Huang, Xu, Luo (2018).
 }}
 
-\item{set}{Simulation setting based on scenarios outlined in tables 1 and 2 in Lee CH, Huang C-Y, Xu G, Luo X (2017). Choose 1.1 (default) for scenario 1 with \eqn{\rho=1} in the covariance matrix of the frailty vector, 1.2 for scenario 1 with \eqn{\rho=0.5}, 1.3 for scenario 1 with \eqn{\rho=0} and 2.0 for scenario 2.}
+\item{set}{Simulation setting based on scenarios outlined in Tables 1 and 2 in Lee, Huang, Xu, Luo (2018). Choose 1.1 (default) for scenario 1 with \eqn{\rho=1} in the covariance matrix of the frailty vector, 1.2 for scenario 1 with \eqn{\rho=0.5}, 1.3 for scenario 1 with \eqn{\rho=0} and 2.0 for scenario 2. Default is 1.1.}
 }
 \value{
-Data frame with alternating recurrent event data and two covariates
+Data frame with the alternating recurrent event data and one continuous and one binary covariate.
 }
 \description{
-This function simulates a series of alternating recurrent events based on simulations in Lee CH, Huang C-Y, Xu G, Luo X (2017).
-}
-\examples{
-library(BivRec)
-set.seed(1234)
-biv.rec.sim(nsize=150, beta1=c(0.5,0.5), beta2=c(0,-0.5), tau_c=63, set=1.1)
+Deprecated function from the previous version. Use \code{simBivRec}.
 }
 \references{
-\enumerate{
-\item Lee C, Huang CY, Xu G, Luo X (2017). Semiparametric regression analysis for alternating recurrent event data. Statistics in Medicine, 37: 996-1008.
+Lee CH, Huang CY, Xu G, Luo X. (2018). Semiparametric regression analysis for alternating recurrent event data. Statistics in Medicine, 37: 996-1008.
 \url{https://doi.org/10.1002/sim.7563}
 }
-}
-\keyword{biv.rec.sim,}
-\keyword{simulation}
