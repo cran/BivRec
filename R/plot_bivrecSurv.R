@@ -16,6 +16,7 @@
 #' @param main Optional string with plot title. Default is no title (will go to default when using \verb{by} argument).
 #' @param xlab Optional string with label for horizontal axis. Default is "Time".
 #' @param ylab Optional string with label for vertical axis. Default is "Individual".
+#' @param col Optional string vector with colors to use for each of the gap types. Default is c("red", "blue")
 #' @param type Optional vector of strings to label Type I and Type II gap times. Default is c("Type I", "Type II").
 #' @param ... Additional arguments to be passed to graphical methods if needed.
 #'
@@ -46,7 +47,7 @@
 #' }
 
 plot.bivrecSurv <- function(x, y=NULL, by, type = NULL, main = NULL,
-                            xlab = NULL, ylab = NULL, ...){
+                            xlab = NULL, ylab = NULL, col=NULL, ...){
 
   if (!inherits(x, "bivrecSurv")) stop("Must be a bivrecSurv object.")
   object <- x
@@ -55,6 +56,7 @@ plot.bivrecSurv <- function(x, y=NULL, by, type = NULL, main = NULL,
   if (missing(type)) {type=c("Type I","Type II")}
   if (missing(xlab)) {xlab="Time"}
   if (missing(ylab)) {ylab="Individual"}
+  if (missing(col)) {col=c("red", "blue")}
   if (missing(main)) {main=""}
   args = c(main, xlab, ylab, type)
 
@@ -66,7 +68,7 @@ plot.bivrecSurv <- function(x, y=NULL, by, type = NULL, main = NULL,
   nsubject <- object$data4Lreg$n
 
   basicplot(parameters=parameters, ctimes=ctimes,
-            nsubject=nsubject, temp = NULL, args = args,
+            nsubject=nsubject, temp = NULL, args = args, col = col,
             c=0.95, cm=1.5, byp=FALSE)
 
   } else {
@@ -82,17 +84,13 @@ plot.bivrecSurv <- function(x, y=NULL, by, type = NULL, main = NULL,
         if (nrows_c[1]!= nrows_c[2]) {
           stop("Non-conformable arguments. Vector variables to create bivrecSurv object and categorical variables to plot by must have the same length.")
         }
-      } else {stop("Parameter by must be a vector or data frame.")}
-      }
+      } else {stop("Parameter by must be a vector or data frame.")}      }
 
     #colnames(df) <- c("id", "episode", "xij", "yij", "ci")
     df = as.data.frame(cbind(object$data4Creg[,-(5:7)], na.omit(by)))
-    plotBy(df, args)
+    plotBy(df, args, col=col)
 
   }
-
-
-
 
 
 }

@@ -60,7 +60,7 @@ sim_data <- simBivRec(nsize=100, beta1=c(0.5,0.5), beta2=c(0,-0.5),
             tau_c=63, set=1.1)
 bivrecsurv_data <- with(sim_data, bivrecSurv(id, epi, xij, yij, d1, d2))
 npresult <- bivrecNP(response = bivrecsurv_data, ai=1,
-                     u1 = seq(2, 20, 1), u2 = seq(1, 15, 1), level=0.99)
+                     u1 = seq(2, 20, 2), u2 = seq(1, 14, 2), level=0.99)
 head(npresult)
 plot(npresult)
 
@@ -76,5 +76,5 @@ plot(npresult)
 }
 \references{
 Huang CY, Wang MC. (2005). Nonparametric estimation of the bivariate recurrence time distribution. Biometrics, 61: 392-402.
-\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1541-0420.2005.00328.x}
+\doi{10.1111/j.1541-0420.2005.00328.x}
 }

@@ -9,7 +9,7 @@
 #' @keywords internal
 #' @noRd
 #'
-ploteach <- function(pred_levels, plotdat, cov_name, args) {
+ploteach <- function(pred_levels, plotdat, cov_name, args, col) {
   dfs = args_new = list()
   for (p in 1:length(pred_levels)) {
     ##EXTRACT VECTORS FOR PLOTTING FUNCTION
@@ -39,14 +39,14 @@ ploteach <- function(pred_levels, plotdat, cov_name, args) {
     #draw p_iter plot in mfrow
     basicplot(parameters = dfs[[p_iter]], ctimes = unique(dfs[[p_iter]]$ci),
               nsubject=max(unique(dfs[[p_iter]]$id)), temp=NULL,
-              args = args_new[[p_iter]], c=0.75, cm=0.9, byp=TRUE)
+              args = args_new[[p_iter]], col=col, c=0.75, cm=0.9, byp=TRUE)
   }
   legendtext = c(args[4], args[5])
   #xlim2 = round(max(ctimes), digits = -1) + 10
   par(mar=c(1,1,1,1)+0.1)
   plot(0:1, 0:1, xaxt='n',yaxt='n',bty='n',ylab='',xlab='',
        col="white")
-  legend("center", legend=legendtext, col = c("blue", "red"),
+  legend("center", legend=legendtext, col = col,
          lty = 1, bg = "white", bty='n', horiz=TRUE)
 }
 
@@ -59,14 +59,17 @@ ploteach <- function(pred_levels, plotdat, cov_name, args) {
 #' @keywords internal
 #' @noRd
 
-plotBy <- function(df, args) {
+plotBy <- function(df, args, col) {
 
   #number of levels for each predictor
   num_levs <- apply(df[, 6:ncol(df)], 2, function(x) length(unique(x)))
   to_delete <- which(num_levs > 6) + 5
-  message1 <- paste(colnames(df)[to_delete], " not used - either continuous or had more than 6 levels.", sep="")
-  print(message1)
-  df <- df[, -to_delete]
+
+  if(length(to_delete)>0){
+     message1 <- paste(colnames(df)[to_delete], " not used - either continuous or had more than 6 levels.", sep="")
+     print(message1)
+     df <- df[, -to_delete]
+  }
 
   if (ncol(df)==5) {stop("Cannot break by covariate. All covariates are continuous or have more than 6 levels.")}
 
@@ -79,12 +82,12 @@ plotBy <- function(df, args) {
   if (length(cov_names)==1) {
     pred_levels = unique(df[,6])
     plotdat = na.omit(df[ , 1:6])
-    ploteach(pred_levels, plotdat, cov_name = cov_names, args)
+    ploteach(pred_levels, plotdat, cov_name = cov_names, args, col = col)
   } else {
     for (k in 1:length(cov_names)) {
       pred_levels = unique(df[ ,5+k])
       plotdat = na.omit(df[, c(1:5, 5+k)])
-      ploteach(pred_levels, plotdat, cov_name = cov_names[k], args)
+      ploteach(pred_levels, plotdat, cov_name = cov_names[k], args, col=col)
     }
   }
   par(mfrow=c(1, 1))
